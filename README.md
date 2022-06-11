@@ -1,1 +1,1 @@
-# json-beautifier
+# json/dictionary & array/list beautifier
