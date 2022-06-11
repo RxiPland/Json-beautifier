@@ -13,8 +13,8 @@ f_raw = open(soubor_raw, "r")
 obsah_raw = f_raw.read()
 f_raw.close()
 
-final = ""
-i = 1
+final = ""              # pomocná proměnná do které for zapisuje postupně znak po znaku
+i = 0                   # počet /t (tab) odsazení -> bude se postupně vnořovat
 uvozovky_lock = False   # false == mimo uvozovky;  true == v uvozovkách
 
 for x, character in enumerate(obsah_raw):
