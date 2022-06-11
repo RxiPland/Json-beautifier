@@ -1,68 +1,125 @@
 # json beautifier
+# python 3.9.12
+# udělal RxiPland
 
-from os import system, getcwd
-from os.path import exists
+from PyQt5.QtWidgets import QApplication, QFileDialog, QDialog
+import sys
 
-soubor_raw = input("Zadejte soubor: ")
+from os import environ
 
-if not exists(soubor_raw):
+environ["QT_DEVICE_PIXEL_RATIO"] = "0"
+environ["QT_AUTO_SCREEN_SCALE_FACTOR"] = "1"
+environ["QT_SCREEN_SCALE_FACTORS"] = "1"
+environ["QT_SCALE_FACTOR"] = "1"
 
-    soubor_raw = getcwd() + "\\" + soubor_raw
+class file_dialog(QDialog):
 
-f_raw = open(soubor_raw, "r")
-obsah_raw = f_raw.read()
-f_raw.close()
+    def vyberLokace_raw(self):
+        # otevře průzkumník souborů a nechá uživatele vybrat normální soubor, který se pak bude šifrovat
+        try:
 
-final = ""              # pomocná proměnná do které for zapisuje postupně znak po znaku
-i = 0                   # počet /t (tab) odsazení -> bude se postupně vnořovat
-uvozovky_lock = False   # false == mimo uvozovky;  true == v uvozovkách
+            dlg = QFileDialog.getOpenFileName(self, 'Vyberte soubor, který chcete zpracovat','','Všechny soubory (*.*);;Textový soubor (*.txt)')
+            return str(dlg[0])
 
-for x, character in enumerate(obsah_raw):
+        except:
+            return "exited"
 
-    if character in ["\'", "\""]:
-        if uvozovky_lock == False:
-            uvozovky_lock = True
-        else:
-            uvozovky_lock = False
+    def vyberLokace_save(self):
+        # otevře průzkumník souborů a nechá uživatele uložit nový soubor
 
-        final += character
-    
-    elif character == ":" and uvozovky_lock == False:
-        if obsah_raw[x] == " ":
-            pass
-        else:
-            character += ' '
+        try:
+            dlg = QFileDialog.getSaveFileName(self, 'Uložte hotový soubor', '','JSON soubor (*.json);;Textový soubor (*.txt);;Všechny soubory (*.*)')
+            return str(dlg[0])
 
-        final += character
+        except:
+            return "exited"
 
-    elif character == "{" and uvozovky_lock == False:
-        final += "{\n" + "\t"*(i+1)
-        i += 1
+        
+def main():
 
-    elif character == "}" and uvozovky_lock == False:
-        i -= 1
-        final += "\n" + "\t"*i + "}"
+    print("\n[1] Vyberte soubor, který chcete upravit...")
 
-    elif character == "," and uvozovky_lock == False:
-        final += "," + "\n" + "\t"*i
+    cesta_raw = "!"
 
-    elif character == "[" and uvozovky_lock == False:
-        if obsah_raw[x+1] == "]":
+    while cesta_raw in ["!", "exited"]:
+        cesta_raw = dialog.vyberLokace_raw()
+
+    if not cesta_raw:
+        sys.exit()
+
+    with open(cesta_raw, "r") as file:
+        obsah_raw = file.read()
+
+    final = ""              # pomocná proměnná do které for zapisuje postupně znak po znaku
+    i = 0                   # počet /t (tab) odsazení -> bude se postupně vnořovat
+    uvozovky_lock = False   # false == mimo uvozovky;  true == v uvozovkách
+
+    for x, character in enumerate(obsah_raw):
+
+        if character in ["\'", "\""]:
+            if uvozovky_lock == False:
+                uvozovky_lock = True
+            else:
+                uvozovky_lock = False
+
             final += character
-        else:
+        
+        elif character == ":" and uvozovky_lock == False:
+            if obsah_raw[x] == " ":
+                pass
+            else:
+                character += ' '
+
+            final += character
+
+        elif character == "{" and uvozovky_lock == False:
+            final += "{\n" + "\t"*(i+1)
             i += 1
-            final += "[" + "\n" + "\t"*i
 
-    elif character == "]" and uvozovky_lock == False:
-        if obsah_raw[x-1] == "[":
-            final += character
-        else:
+        elif character == "}" and uvozovky_lock == False:
             i -= 1
-            final += "\n" + "\t"*i + "]"
+            final += "\n" + "\t"*i + "}"
 
-    else:
-        final += character
+        elif character == "," and uvozovky_lock == False:
+            final += "," + "\n" + "\t"*i
 
-f_done = open("done.json", "w")
-f_done.write(final)
-f_done.close()
+        elif character == "[" and uvozovky_lock == False:
+            if obsah_raw[x+1] == "]":
+                final += character
+            else:
+                i += 1
+                final += "[" + "\n" + "\t"*i
+
+        elif character == "]" and uvozovky_lock == False:
+            if obsah_raw[x-1] == "[":
+                final += character
+            else:
+                i -= 1
+                final += "\n" + "\t"*i + "]"
+
+        else:
+            final += character
+
+    print("[2] JSON byl úspěšně upraven...")
+
+    print("[3] Uložte soubor...")
+
+    cesta_save = "!"
+
+    while cesta_save in ["!", "exited"]:
+        cesta_save = dialog.vyberLokace_save()
+        
+    if not cesta_save:
+        sys.exit()
+
+    with open(cesta_save, "w") as file:
+        file.write(final)
+        
+if __name__ == "__main__":
+    app = QApplication(sys.argv)
+    dialog = file_dialog()
+
+    main()
+    print("[4] Ukončuji program...")
+
+    sys.exit()
