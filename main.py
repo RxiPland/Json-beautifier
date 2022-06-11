@@ -50,6 +50,10 @@ def main():
     with open(cesta_raw, "r") as file:
         obsah_raw = file.read()
 
+    nazevSouboru = cesta_raw.split("/")
+
+    print(f"[2] Soubor {nazevSouboru[-1]} byl načten")
+
     final = ""              # pomocná proměnná do které for zapisuje postupně znak po znaku
     i = 0                   # počet /t (tab) odsazení -> bude se postupně vnořovat
     uvozovky_lock = False   # false == mimo uvozovky;  true == v uvozovkách
@@ -100,9 +104,9 @@ def main():
         else:
             final += character
 
-    print("[2] JSON byl úspěšně upraven...")
+    print("[3] JSON byl úspěšně upraven")
 
-    print("[3] Uložte soubor...")
+    print("[4] Uložte soubor...")
 
     cesta_save = "!"
 
@@ -114,12 +118,16 @@ def main():
 
     with open(cesta_save, "w") as file:
         file.write(final)
+
+    nazevSouboru = cesta_save.split("/")
+
+    print(f"[5] Soubor {nazevSouboru[-1]} byl úspěšně uložen")
         
 if __name__ == "__main__":
     app = QApplication(sys.argv)
     dialog = file_dialog()
 
     main()
-    print("[4] Ukončuji program...")
+    print("[6] Ukončuji program")
 
     sys.exit()
