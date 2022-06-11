@@ -15,7 +15,7 @@ environ["QT_SCALE_FACTOR"] = "1"
 class file_dialog(QDialog):
 
     def vyberLokace_raw(self):
-        # otevře průzkumník souborů a nechá uživatele vybrat normální soubor, který se pak bude šifrovat
+        # otevře průzkumník souborů a nechá uživatele vybrat soubor, který chce upravit
         try:
 
             dlg = QFileDialog.getOpenFileName(self, 'Vyberte soubor, který chcete zpracovat','','Všechny soubory (*.*);;Textový soubor (*.txt)')
