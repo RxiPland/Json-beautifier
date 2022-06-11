@@ -1,6 +1,7 @@
 # Zkrášlovač
 
-- upraví text tak, aby byl pro uživatele čitelný
+- Upraví JSON text, aby byl pro uživatele čitelný
+- Text musí být v souboru
 
 Umí zpracovat:
 - json/dictionary
