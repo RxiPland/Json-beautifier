@@ -1,1 +1,5 @@
-# json/dictionary & array/list beautifier
+# Zkrášlovač
+
+Umí zpracovat:
+- json/dictionary
+- array/list
