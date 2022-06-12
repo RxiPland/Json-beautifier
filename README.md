@@ -4,8 +4,8 @@
 - Text musí být v souboru
 
 Umí zpracovat:
-- [json](https://cs.wikipedia.org/wiki/JavaScript_Object_Notation)/dictionary (Python)
-- [array](https://cs.wikipedia.org/wiki/Pole_(datov%C3%A1_struktura))/list (Python)
+- [json](https://cs.wikipedia.org/wiki/JavaScript_Object_Notation) / dictionary *(Python)*
+- [array](https://cs.wikipedia.org/wiki/Pole_(datov%C3%A1_struktura)) / list *(Python)*
 
 # Použité knihovny:
 ```
