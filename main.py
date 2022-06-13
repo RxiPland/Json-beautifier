@@ -34,6 +34,36 @@ class file_dialog(QDialog):
         except:
             return "exited"
 
+def vymazat_mezery(obsah_raw):
+
+    # preventivně vymaže všechny mezery (kromě mezer v uvozovkách)
+
+    final = ""
+    uvozovky_lock = False   # false == mimo uvozovky;  true == v uvozovkách
+
+    for znak in obsah_raw:
+        if znak in ["\"", "\'"]:
+
+            if uvozovky_lock:
+
+                uvozovky_lock = False
+            else:
+                uvozovky_lock = True
+
+            final += znak
+
+        elif znak in [" ", "\n", "\t"] and not uvozovky_lock:
+            pass
+
+        else:
+            final += znak
+
+
+    with open("vystup.txt", "w") as file:
+        file.write(final)
+
+    return final
+
         
 def main():
 
@@ -42,7 +72,7 @@ def main():
     cesta_raw = "!"
 
     while cesta_raw in ["!", "exited"]:
-        cesta_raw = dialog.vyberLokace_raw()
+        cesta_raw = dialog.vyberLokace_raw()    # vybrat lokaci raw souboru
 
     if not cesta_raw:
         sys.exit()
@@ -50,13 +80,17 @@ def main():
     with open(cesta_raw, "r") as file:
         obsah_raw = file.read()
 
-    nazevSouboru = cesta_raw.split("/")
+    obsah_raw = vymazat_mezery(obsah_raw)   # funkce pro preventivní vymazání mezer
 
+    nazevSouboru = cesta_raw.split("/")
     print(f"[2] Soubor {nazevSouboru[-1]} byl načten")
 
     final = ""              # pomocná proměnná do které for zapisuje postupně znak po znaku
     i = 0                   # počet /t (tab) odsazení -> bude se postupně vnořovat
     uvozovky_lock = False   # false == mimo uvozovky;  true == v uvozovkách
+
+
+    # upravování:
 
     for x, character in enumerate(obsah_raw):
 
