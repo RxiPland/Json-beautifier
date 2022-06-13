@@ -4,7 +4,7 @@
 - JSON musí být v souboru (např. txt), aby ho mohl program načíst
 - Pokud se vloží už jednou zkrášlený json, program je nastaven tak, aby vstupní text pokaždé preventivně zbavil mezer a odsazení, které nejsou v uvozovkách, takže se json upraví kompletně znova
 
-Umí zpracovat:
+Program umí zpracovat (zkrášlit):
 - [json](https://cs.wikipedia.org/wiki/JavaScript_Object_Notation) / dictionary *(Python)*
 - [array](https://cs.wikipedia.org/wiki/Pole_(datov%C3%A1_struktura)) / list *(Python)*
 
