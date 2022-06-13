@@ -1,7 +1,8 @@
-# Zkrášlovač
+# Zkrášlovač jsonu
 
-- Upraví JSON text, aby byl pro uživatele čitelný
-- Text musí být v souboru
+- Upraví nepřehledný JSON tak, aby byl pro uživatele čitelný
+- JSON musí být v souboru (např. txt), aby ho mohl program načíst
+- Pokud se vloží už jednou zkrášlený json, program je nastaven tak, aby vstupní text pokaždé preventivně zbavil mezer a odsazení, které nejsou v uvozovkách, takže se json upraví kompletně znova
 
 Umí zpracovat:
 - [json](https://cs.wikipedia.org/wiki/JavaScript_Object_Notation) / dictionary *(Python)*
