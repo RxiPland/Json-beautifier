@@ -58,10 +58,6 @@ def vymazat_mezery(obsah_raw):
         else:
             final += znak
 
-
-    with open("vystup.txt", "w") as file:
-        file.write(final)
-
     return final
 
         
