@@ -5,7 +5,7 @@
 - Pokud se vloží už jednou zkrášlený json, program je nastaven tak, aby vstupní text pokaždé preventivně zbavil mezer a odsazení, které nejsou v uvozovkách, takže se json upraví kompletně znova
 - Program není limitován délkou vstupního textu (jsonu)
 
-Program umí zpracovat (zkrášlit)
+Program umí zpracovat (zkrášlit):
 - [json](https://cs.wikipedia.org/wiki/JavaScript_Object_Notation) { } / dictionary *(Python)*
 - [array](https://cs.wikipedia.org/wiki/Pole_(datov%C3%A1_struktura)) [ ] / list *(Python)*
 
