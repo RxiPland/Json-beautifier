@@ -1,5 +1,5 @@
 # json beautifier
-# python 3.9.12
+# python 3.10.6
 # udělal RxiPland
 
 from PyQt5.QtWidgets import QApplication, QFileDialog, QDialog
@@ -41,8 +41,9 @@ def vymazat_mezery(obsah_raw):
     final = ""
     uvozovky_lock = False   # false == mimo uvozovky;  true == v uvozovkách
 
-    for znak in obsah_raw:
-        if znak in ["\"", "\'"]:
+    i = 0
+    for i, znak in enumerate(obsah_raw):
+        if znak in ["\"", "\'"] and obsah_raw[i-1] != "\\":
 
             if uvozovky_lock:
 
@@ -90,7 +91,7 @@ def main():
 
     for x, character in enumerate(obsah_raw):
 
-        if character in ["\'", "\""]:
+        if character in ["\'", "\""] and obsah_raw[x-1] != "\\":
             if uvozovky_lock == False:
                 uvozovky_lock = True
             else:
